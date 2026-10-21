@@ -31,7 +31,7 @@ function ResearchPage() {
   const ai = useAi("research");
 
   const generate = async () => {
-    if (!question.trim() && source.trim().length < 50) return setErr("Enter a research question, or paste an article (50+ characters).");
+    if (!question.trim() && source.trim().length < 50) { setErr("Enter a research question, or paste an article (50+ characters)."); return; }
     setErr("");
     const content = `Research question: ${question || "(none — analyse the supplied text)"}\n\nSupplied source text:\n${source.trim() ? `"""\n${source}\n"""` : "(none supplied)"}`;
     const res = await ai.run([{ role: "user", content }]);

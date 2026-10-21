@@ -44,9 +44,9 @@ function Dashboard() {
 
   const cards = [
     { label: "Tasks completed", value: `${done}/${tasks.length}`, icon: CheckCircle2 },
-    { label: "Emails drafted", value: stats.email ?? 0, icon: Mail },
-    { label: "Meetings summarized", value: stats.meeting ?? 0, icon: NotebookPen },
-    { label: "Research & chats", value: (stats.research ?? 0) + (stats.chat ?? 0), icon: Search },
+    { label: "Emails drafted", value: stats["email"] ?? 0, icon: Mail },
+    { label: "Meetings summarized", value: stats["meeting"] ?? 0, icon: NotebookPen },
+    { label: "Research & chats", value: (stats["research"] ?? 0) + (stats["chat"] ?? 0), icon: Search },
   ];
 
   return (

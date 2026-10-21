@@ -36,7 +36,7 @@ function MeetingsPage() {
   const ai = useAi("meeting");
 
   const generate = async () => {
-    if (notes.trim().length < 30) return setErr("Please paste at least a few lines of meeting notes (30+ characters).");
+    if (notes.trim().length < 30) { setErr("Please paste at least a few lines of meeting notes (30+ characters)."); return; }
     setErr("");
     const res = await ai.run([{ role: "user", content: `Meeting notes:\n"""\n${notes}\n"""` }]);
     if (res) logActivity("meeting", "Summarized meeting notes");

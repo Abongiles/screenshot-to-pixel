@@ -36,7 +36,7 @@ function SettingsPage() {
         className="space-y-4 rounded-xl border bg-card p-5 shadow-card"
         onSubmit={(e) => {
           e.preventDefault();
-          if (!draft.name.trim()) return toast.error("Name is required");
+          if (!draft.name.trim()) { toast.error("Name is required"); return; }
           setProfile({ name: draft.name.trim(), role: draft.role.trim() });
           toast.success("Profile saved");
         }}

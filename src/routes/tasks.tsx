@@ -50,8 +50,8 @@ function TasksPage() {
 
   const add = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.title.trim()) return setErr("Task title is required.");
-    if (form.duration < 5 || form.duration > 1440) return setErr("Duration must be between 5 and 1440 minutes.");
+    if (!form.title.trim()) { setErr("Task title is required."); return; }
+    if (form.duration < 5 || form.duration > 1440) { setErr("Duration must be between 5 and 1440 minutes."); return; }
     setErr("");
     setTasks((p) => [{ ...form, title: form.title.trim(), id: uid(), done: false, createdAt: Date.now() }, ...p]);
     logActivity("task", `Added task "${form.title.trim()}"`);
@@ -68,7 +68,7 @@ function TasksPage() {
     toast.success("Task deleted");
   };
   const saveEdit = () => {
-    if (!edit.title.trim()) return toast.error("Title cannot be empty");
+    if (!edit.title.trim()) { toast.error("Title cannot be empty"); return; }
     setTasks((p) => p.map((x) => (x.id === editId ? { ...x, ...edit } : x)));
     setEditId(null);
     toast.success("Task updated");
@@ -80,7 +80,7 @@ function TasksPage() {
   const shown = tasks.filter((t) => (filter === "All" ? true : filter === "Done" ? t.done : t.priority === filter));
 
   const plan = async () => {
-    if (!open.length) return toast.error("Add at least one open task to generate a plan.");
+    if (!open.length) { toast.error("Add at least one open task to generate a plan."); return; }
     const list = open.map((t) => `- ${t.title} | Priority: ${t.priority} | Duration: ${t.duration} min | Deadline: ${t.deadline || "none"}`).join("\n");
     const content = `Today is ${new Date().toDateString()}. Create a ${mode === "day" ? "schedule for today" : "weekly schedule (Mon–Fri)"} starting at 08:00 with ${hours} available working hours per day.\nTasks:\n${list}`;
     const res = await ai.run([{ role: "user", content }]);
