@@ -18,7 +18,7 @@ function json(status: number, error: string) {
 }
 
 async function handle(request: Request) {
-  const apiKey = process.env.LOVABLE_API_KEY;
+  const apiKey = process.env['LOVABLE_API_KEY'];
   if (!apiKey) return json(503, "AI is not configured: the server is missing its AI key. See README → AI configuration.");
 
   let body: { feature?: string; messages?: { role: string; content: string }[] };
@@ -32,7 +32,7 @@ async function handle(request: Request) {
   const msgs = (body.messages ?? []).filter(
     (m) => (m.role === "user" || m.role === "assistant") && typeof m.content === "string",
   );
-  if (!msgs.length || !msgs[msgs.length - 1].content.trim()) return json(400, "Please provide some input.");
+  if (!msgs.length || !msgs[msgs.length - 1]?.content.trim()) return json(400, "Please provide some input.");
   if (msgs.reduce((n, m) => n + m.content.length, 0) > MAX_CHARS) return json(400, "Input is too long. Please shorten it.");
 
   const runIdFetch = createLovableAiGatewayRunIdFetch(getLovableAiGatewayRunId(request));

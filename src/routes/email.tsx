@@ -35,8 +35,8 @@ function EmailPage() {
 
   const generate = async () => {
     const e: Record<string, string> = {};
-    if (!f.recipient.trim()) e.recipient = "Recipient is required.";
-    if (!f.purpose.trim()) e.purpose = "Describe the purpose of the email.";
+    if (!f.recipient.trim()) e["recipient"] = "Recipient is required.";
+    if (!f.purpose.trim()) e["purpose"] = "Describe the purpose of the email.";
     setErrors(e);
     if (Object.keys(e).length) return;
     const prompt = `Recipient: ${f.recipient}\nSubject: ${f.subject || "(suggest one)"}\nPurpose: ${f.purpose}\nKey points:\n${f.points || "(none provided)"}\nTone: ${tone}`;
